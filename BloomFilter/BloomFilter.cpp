@@ -2,6 +2,12 @@
 
 #include "BloomFilter.h"
 
+BloomFilter::BloomFilter(int size, std::vector<hashingFunction>& hashingFunctions)
+	: m_hashingFunctions(hashingFunctions)
+	, m_vector(size)
+{
+}
+
 void BloomFilter::put(std::string input)
 {
 }
