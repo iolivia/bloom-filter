@@ -1,10 +1,9 @@
 #pragma once
 
-#include <string>
+#include "IBloomFilter.h"
 
-class IBloomFilter 
-{
-public:
-	virtual void put(std::string input) = 0;
-	virtual bool isMaybePreset(std::string input) = 0;
+class BloomFilter : public IBloomFilter {
+	// Inherited via IBloomFilter
+	virtual void put(std::string input) override;
+	virtual bool isMaybePresent(std::string input) override;
 };
