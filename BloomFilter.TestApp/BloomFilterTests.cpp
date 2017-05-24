@@ -2,107 +2,59 @@
 
 #include "gtest/gtest.h"
 
-#include "../BloomFilter/Hash.cpp"
+#include "../BloomFilter/BloomFilter.cpp"
 
-TEST(Hash, HashIsNotEmpty)
+BloomFilter CreateBloomFilter(int size, int k)
 {
-	// Arrange
 	auto hash = new Hash();
-	auto input = "abc";
+	auto bloomFilter = BloomFilter(*hash, size, k);
 
-	// Act
-	auto hashedInput = hash->hash(input);
-
-	// Assert
-	EXPECT_TRUE(!hashedInput.empty());
+	return bloomFilter;
 }
 
-TEST(Hash, HashIsConsistent)
+TEST(BloomFilter, Put)
 {
 	// Arrange
-	auto hash = new Hash();
-	auto input = "abc";
+	int size = 10;
+	int k = 3;
+	auto bloomFilter = CreateBloomFilter(size, k);
+
+	std::string input = "A";
 
 	// Act
-	auto hashedInput1 = hash->hash(input);
-	auto hashedInput2 = hash->hash(input);
-
-	// Assert
-	EXPECT_EQ(hashedInput1, hashedInput2);
+	bloomFilter.put(input);
 }
 
-TEST(Hash, DifferentForDifferentInputs)
+TEST(BloomFilter, IsMaybePresentTrueIfItemPut)
 {
 	// Arrange
-	auto hash = new Hash();
-	auto input1 = "abgfgeasgsgretryhgh456gdfgdfc";
-	auto input2 = "fafdfsadggbdfbdfcvb";
+	int size = 10;
+	int k = 3;
+	auto bloomFilter = CreateBloomFilter(size, k);
+
+	std::string input = "A";
+
+	bloomFilter.put(input);
 
 	// Act
-	auto hashedInput1 = hash->hash(input1);
-	auto hashedInput2 = hash->hash(input2);
+	bool isMaybePresent = bloomFilter.isMaybePresent(input);
 
 	// Assert
-	EXPECT_NE(hashedInput1, hashedInput2);
+	EXPECT_TRUE(isMaybePresent);
 }
 
-TEST(HashIterations, EmptyFor0Iterations)
+TEST(BloomFilter, IsMaybePresentFalseIfFilterEmpty)
 {
 	// Arrange
-	auto hash = new Hash();
-	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int interations = 0;
+	int size = 10;
+	int k = 3;
+	auto bloomFilter = CreateBloomFilter(size, k);
+
+	std::string input = "A";
 
 	// Act
-	auto hashedInput = hash->hash(input, interations);
+	bool isMaybePresent = bloomFilter.isMaybePresent(input);
 
 	// Assert
-	EXPECT_TRUE(hashedInput.empty());
-}
-
-TEST(HashIterations, SameFor1Iteration)
-{
-	// Arrange
-	auto hash = new Hash();
-	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int interations = 1;
-	auto hashedInputOnce = hash->hash(input);
-
-	// Act
-	auto hashedInput = hash->hash(input, interations);
-
-	// Assert
-	EXPECT_EQ(hashedInputOnce, hashedInput[0]);
-}
-
-TEST(HashIterations, DifferentForDifferentIterations)
-{
-	// Arrange
-	auto hash = new Hash();
-	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int iterations = 10;
-
-	// Act
-	auto hashedInput = hash->hash(input, iterations);
-
-	// Assert
-	EXPECT_NE(hashedInput[iterations - 2], hashedInput[iterations - 1]);
-}
-
-TEST(HashIterationsMax, NotAboveMax)
-{
-	// Arrange
-	auto hash = new Hash();
-	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int interations = 10;
-	unsigned int max = 100;
-
-	// Act
-	auto hashedIndexed = hash->hash(input, interations, max);
-
-	// Assert
-	for (const auto& hashedIndex : hashedIndexed) 
-	{
-		EXPECT_LE(hashedIndex, max);
-	}
+	EXPECT_FALSE(isMaybePresent);
 }
