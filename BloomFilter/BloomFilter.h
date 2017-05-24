@@ -5,8 +5,6 @@
 #include "Hash.h"
 #include "IBloomFilter.h"
 
-typedef void(*hashingFunction)(std::string a);
-
 class BloomFilter : public IBloomFilter {
 
 public:

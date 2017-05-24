@@ -72,22 +72,7 @@ TEST(HashIterations, SameFor1Iteration)
 	auto hashedInput = hash->hash(input, interations);
 
 	// Assert
-	EXPECT_EQ(hashedInputOnce, hashedInput);
-}
-
-TEST(HashIterations, DifferentForManyIterations)
-{
-	// Arrange
-	auto hash = new Hash();
-	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int interations = 10;
-	auto hashedInputOnce = hash->hash(input);
-
-	// Act
-	auto hashedInput = hash->hash(input, interations);
-
-	// Assert
-	EXPECT_NE(hashedInputOnce, hashedInput);
+	EXPECT_EQ(hashedInputOnce, hashedInput[0]);
 }
 
 TEST(HashIterations, DifferentForDifferentIterations)
@@ -95,15 +80,13 @@ TEST(HashIterations, DifferentForDifferentIterations)
 	// Arrange
 	auto hash = new Hash();
 	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int interations1 = 10;
-	unsigned int interations2 = 5;
+	unsigned int iterations = 10;
 
 	// Act
-	auto hashedInput1 = hash->hash(input, interations1);
-	auto hashedInput2 = hash->hash(input, interations2);
+	auto hashedInput = hash->hash(input, iterations);
 
 	// Assert
-	EXPECT_NE(hashedInput1, hashedInput2);
+	EXPECT_NE(hashedInput[iterations - 2], hashedInput[iterations - 1]);
 }
 
 TEST(HashIterationsMax, NotAboveMax)
@@ -115,8 +98,11 @@ TEST(HashIterationsMax, NotAboveMax)
 	unsigned int max = 100;
 
 	// Act
-	unsigned int hashedInput = hash->hash(input, interations, max);
+	auto hashedIndexed = hash->hash(input, interations, max);
 
 	// Assert
-	EXPECT_LE(hashedInput, max);
+	for (const auto& hashedIndex : hashedIndexed) 
+	{
+		EXPECT_LE(hashedIndex, max);
+	}
 }

@@ -12,32 +12,34 @@ std::string Hash::hash(const std::string & input) const
 	return hashedInput;
 }
 
-std::string Hash::hash(const std::string& input, unsigned int iterations) const
+std::vector<std::string> Hash::hash(const std::string& input, unsigned int iterations) const
 {
-	if (iterations == 0) 
-	{
-		return std::string();
-	}
+	auto hashes = std::vector<std::string>();
 
 	// generate a hash of the hash for all iterations
 	std::string hashedInput = input;
 	for (size_t i = 0; i < iterations; i++)
 	{
 		hashedInput = this->hash(hashedInput);
+		hashes.push_back(hashedInput);
 	}
 
-	return hashedInput;
+	return hashes;
 }
 
-unsigned int Hash::hash(const std::string& input, unsigned int iterations, unsigned int max) const
+std::vector<unsigned int> Hash::hash(const std::string& input, unsigned int iterations, unsigned int max) const
 {
-	// hash for all iterations
-	auto hashedHexInput = this->hash(input, iterations);
+	auto hashesIndexed = std::vector<unsigned int>();
+	auto hashes = this->hash(input, iterations);
 
-	// convert to int and max out
-	auto hashedInputInt = this->convertToInt(hashedHexInput, max);
+	for (const auto& hash : hashes)
+	{
+		// convert to int and max out
+		auto hashedInputInt = this->convertToInt(hash, max);
+		hashesIndexed.push_back(hashedInputInt);
+	}
 
-	return hashedInputInt;
+	return hashesIndexed;
 }
 
 unsigned int Hash::convertToInt(const std::string& input, unsigned int max) const
