@@ -1,9 +1,11 @@
 #include "Stdafx.h"
 
+
 #include "BloomFilter.h"
 
-BloomFilter::BloomFilter(int size, std::vector<hashingFunction>& hashingFunctions)
-	: m_hashingFunctions(hashingFunctions)
+BloomFilter::BloomFilter(const Hash & hash, int size, int k)
+	: m_hash(hash)
+	, m_k(k)
 	, m_vector(size)
 {
 }
