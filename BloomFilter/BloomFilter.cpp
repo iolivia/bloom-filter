@@ -1,6 +1,5 @@
 #include "Stdafx.h"
 
-
 #include "BloomFilter.h"
 
 BloomFilter::BloomFilter(const Hash & hash, int size, int k)
@@ -12,9 +11,29 @@ BloomFilter::BloomFilter(const Hash & hash, int size, int k)
 
 void BloomFilter::put(std::string input)
 {
+	// Hash and get k indexes
+	auto& indexes = m_hash.hash(input, m_k, m_vector.size());
+
+	// Set all those bits to 1
+	for (const auto& index : indexes)
+	{
+		m_vector[index] = true;
+	}
 }
 
 bool BloomFilter::isMaybePresent(std::string input) const
 {
-	return false;
+	// Hash and get k indexes
+	auto& indexes = m_hash.hash(input, m_k, m_vector.size());
+
+	// Find if all bits are set
+	for (const auto& index : indexes)
+	{
+		if (m_vector[index] == false)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
