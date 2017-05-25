@@ -39,19 +39,29 @@ TEST(Performance, Put)
 	testFile.close();
 }
 
-TEST(Performance, FalsePositiveRate)
+struct BloomFilterTestRun
 {
-	// Setup
-	std::ofstream testFile;
-	testFile.open("false_positives.txt");
+	int size;
+	int k;
+	int itemsCount;
+	int itemLength;
 
-	int size = 10000;
-	int k = 20;
-	int itemsCount = 500;
-	int itemLength = 3;
-	auto itemsPresent = GenerateRandomStrings(itemLength, itemsCount);
-	auto itemsNotPreset = GenerateRandomStrings(itemLength, itemsCount);
-	auto bloomFilter = CreateBloomFilter(size, k);
+	BloomFilterTestRun(int size, int k, int itemsCount, int itemLength)
+		: size(size)
+		, k(k)
+		, itemsCount(itemsCount)
+		, itemLength(itemLength)
+	{
+	}
+};
+
+void RunFalsePositiveTest(
+	std::ofstream& testFile, 
+	const BloomFilterTestRun& testRun)
+{
+	auto itemsPresent = GenerateRandomStrings(testRun.itemLength, testRun.itemsCount);
+	auto itemsNotPreset = GenerateRandomStrings(testRun.itemLength, testRun.itemsCount);
+	auto bloomFilter = CreateBloomFilter(testRun.size, testRun.k);
 
 	// Put itemsPresent
 	for (const auto& item : itemsPresent)
@@ -67,8 +77,35 @@ TEST(Performance, FalsePositiveRate)
 		falsePositive += isMaybePresent;
 	}
 
-	auto errorRate = falsePositive / (itemsCount * 1.0);
-	testFile << "error rate: " << errorRate << " \n";
+	auto errorRate = falsePositive / (testRun.itemsCount * 1.0);
+	testFile << testRun.size << " " << testRun.k << " " << testRun.itemsCount << " " << errorRate << " \n";
+}
+
+TEST(Performance, FalsePositiveRate)
+{
+	// Setup
+	std::ofstream testFile;
+	testFile.open("false_positives.txt");
+
+	auto testRuns = 
+	{
+		// Fixed size, fixed items, change k
+		BloomFilterTestRun(10000, 1, 500, 3),
+		BloomFilterTestRun(10000, 3, 500, 3),
+		BloomFilterTestRun(10000, 5, 500, 3),
+		BloomFilterTestRun(10000, 10, 500, 3),
+		BloomFilterTestRun(10000, 20, 500, 3),
+		BloomFilterTestRun(10000, 25, 500, 3),
+		BloomFilterTestRun(10000, 30, 500, 3),
+		BloomFilterTestRun(10000, 50, 500, 3),
+		BloomFilterTestRun(10000, 100, 500, 3),
+		BloomFilterTestRun(10000, 300, 500, 3),
+	};
+
+	for (const auto& testRun : testRuns)
+	{
+		RunFalsePositiveTest(testFile, testRun);
+	}
 
 	// Cleanup 
 	testFile.close();
