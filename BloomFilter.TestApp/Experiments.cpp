@@ -47,7 +47,7 @@ TEST(Performance, FalsePositiveRate)
 
 	int size = 10000;
 	int k = 20;
-	int itemsCount = 20;
+	int itemsCount = 500;
 	int itemLength = 3;
 	auto itemsPresent = GenerateRandomStrings(itemLength, itemsCount);
 	auto itemsNotPreset = GenerateRandomStrings(itemLength, itemsCount);
@@ -60,11 +60,15 @@ TEST(Performance, FalsePositiveRate)
 	}
 
 	// Query for itemsNotPreset to get the true/false positive rate
+	auto falsePositive = 0;
 	for (const auto& item : itemsNotPreset)
 	{
 		bool isMaybePresent = bloomFilter.isMaybePresent(item);
-		testFile << isMaybePresent << "\n";
+		falsePositive += isMaybePresent;
 	}
+
+	auto errorRate = falsePositive / (itemsCount * 1.0);
+	testFile << "error rate: " << errorRate << " \n";
 
 	// Cleanup 
 	testFile.close();
