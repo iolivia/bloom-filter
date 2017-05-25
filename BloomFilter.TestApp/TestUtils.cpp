@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+#include <algorithm>
+#include <iterator>
+
 #include "TestUtils.h"
 
 std::string generateRandomString(size_t length)
