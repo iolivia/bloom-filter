@@ -3,6 +3,7 @@
 #include "gtest/gtest.h"
 
 #include "../BloomFilter/Hash.cpp"
+#include "../BloomFilter/lib/MurmurHash3.cpp"
 
 TEST(Hash, HashIsNotEmpty)
 {
@@ -52,41 +53,31 @@ TEST(HashIterations, EmptyFor0Iterations)
 	auto hash = new Hash();
 	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
 	unsigned int interations = 0;
+	unsigned int max = 100;
 
 	// Act
-	auto hashedInput = hash->hash(input, interations);
+	auto hashedInput = hash->hash(input, interations, max);
 
 	// Assert
 	EXPECT_TRUE(hashedInput.empty());
 }
 
-TEST(HashIterations, SameFor1Iteration)
-{
-	// Arrange
-	auto hash = new Hash();
-	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int interations = 1;
-	auto hashedInputOnce = hash->hash(input);
-
-	// Act
-	auto hashedInput = hash->hash(input, interations);
-
-	// Assert
-	EXPECT_EQ(hashedInputOnce, hashedInput[0]);
-}
 
 TEST(HashIterations, DifferentForDifferentIterations)
 {
 	// Arrange
 	auto hash = new Hash();
 	auto input = "abgfgeasgsgretryhgh456gdfgdfc";
-	unsigned int iterations = 10;
+	unsigned int iterations1 = 10;
+	unsigned int iterations2 = 20;
+	unsigned int max = 100;
 
 	// Act
-	auto hashedInput = hash->hash(input, iterations);
+	auto hashedInput1 = hash->hash(input, iterations1, max);
+	auto hashedInput2 = hash->hash(input, iterations2, max);
 
 	// Assert
-	EXPECT_NE(hashedInput[iterations - 2], hashedInput[iterations - 1]);
+	EXPECT_NE(hashedInput1, hashedInput2);
 }
 
 TEST(HashIterationsMax, NotAboveMax)

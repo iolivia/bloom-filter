@@ -2,15 +2,11 @@
 
 #include "gtest/gtest.h"
 
+#include "TestUtils.h"
+
 #include "../BloomFilter/BloomFilter.cpp"
 
-BloomFilter CreateBloomFilter(int size, int k)
-{
-	auto hash = new Hash();
-	auto bloomFilter = BloomFilter(*hash, size, k);
-
-	return bloomFilter;
-}
+using namespace TestUtils;
 
 TEST(BloomFilter, Put)
 {
