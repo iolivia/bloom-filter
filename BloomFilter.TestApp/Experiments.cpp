@@ -81,26 +81,11 @@ void RunFalsePositiveTest(
 	testFile << testRun.size << " " << testRun.k << " " << testRun.itemsCount << " " << errorRate << " \n";
 }
 
-TEST(Performance, FalsePositiveRate)
+void RunPerformanceTest(const std::string& fileName, const std::vector<BloomFilterTestRun>& testRuns)
 {
 	// Setup
 	std::ofstream testFile;
-	testFile.open("false_positives.txt");
-
-	auto testRuns = 
-	{
-		// Fixed size, fixed items, change k
-		BloomFilterTestRun(10000, 1, 500, 3),
-		BloomFilterTestRun(10000, 3, 500, 3),
-		BloomFilterTestRun(10000, 5, 500, 3),
-		BloomFilterTestRun(10000, 10, 500, 3),
-		BloomFilterTestRun(10000, 20, 500, 3),
-		BloomFilterTestRun(10000, 25, 500, 3),
-		BloomFilterTestRun(10000, 30, 500, 3),
-		BloomFilterTestRun(10000, 50, 500, 3),
-		BloomFilterTestRun(10000, 100, 500, 3),
-		BloomFilterTestRun(10000, 300, 500, 3),
-	};
+	testFile.open(fileName);
 
 	for (const auto& testRun : testRuns)
 	{
@@ -109,4 +94,61 @@ TEST(Performance, FalsePositiveRate)
 
 	// Cleanup 
 	testFile.close();
+}
+
+std::vector<BloomFilterTestRun> PrepareOptimalKTest(int filterSize, int itemsCount, int itemLength)
+{
+	int kStart = 1;
+	int kEnd = filterSize / 2;
+
+	auto ks = 
+	{
+		1,
+		3,
+		5,
+		10,
+		15,
+		20,
+		50,
+		200,
+		500
+	};
+
+	std::vector<BloomFilterTestRun> testRuns;
+
+	// Iterate through all Ks 
+	for (const int& k : ks)
+	{
+		testRuns.push_back(BloomFilterTestRun(filterSize, k, itemsCount, itemLength));
+	}
+
+	return testRuns;
+}
+
+TEST(Performance, FalsePositiveRate_OptimalK)
+{
+	std::vector<BloomFilterTestRun> allTestRuns;
+
+	int filterSize = 10000;
+	int itemLength = 3;
+	auto itemCounts =
+	{
+		100,
+		200,
+		500,
+		750,
+		2000,
+		5000,
+		10000,
+		20000,
+		50000
+	};
+
+	for (const auto& itemCount : itemCounts)
+	{
+		auto testRuns = PrepareOptimalKTest(filterSize, itemCount, itemLength);
+		allTestRuns.insert(allTestRuns.end(), testRuns.begin(), testRuns.end());
+	}
+
+	RunPerformanceTest("test.txt", allTestRuns);
 }
