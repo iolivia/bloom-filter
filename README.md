@@ -2,7 +2,7 @@
 
 ### Overview
 
-This is a c++ implementation of a [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter). You can read more about the implementation details in the [bloom-filter](https%3A%2F%2Folivif.github.io%2Fcategories%2F%23bloom%20filter) blog post series.
+This is a c++ implementation of a [Bloom Filter](https://en.wikipedia.org/wiki/Bloom_filter). You can read more about the implementation details in the [bloom-filter](https://olivif.github.io/categories/%23bloom%20filter) blog post series.
 
 ### Features
 
