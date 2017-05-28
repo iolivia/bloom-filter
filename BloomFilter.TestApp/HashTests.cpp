@@ -2,8 +2,8 @@
 
 #include "gtest/gtest.h"
 
-#include "../BloomFilter/Hash.cpp"
-#include "../BloomFilter/lib/MurmurHash3.cpp"
+#include "../BloomFilter/src/Hash.cpp"
+#include "../BloomFilter/include/MurmurHash3.cpp"
 
 TEST(Hash, HashIsNotEmpty)
 {

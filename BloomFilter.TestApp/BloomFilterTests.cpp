@@ -4,7 +4,7 @@
 
 #include "TestUtils.h"
 
-#include "../BloomFilter/BloomFilter.cpp"
+#include "../BloomFilter/src/BloomFilter.cpp"
 
 using namespace TestUtils;
 
