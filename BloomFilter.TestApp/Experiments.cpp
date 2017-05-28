@@ -10,7 +10,7 @@
 
 using namespace TestUtils;
 
-TEST(Performance, Put)
+TEST(DISABLED_Performance, Put)
 {
 	// Arrange
 	std::ofstream testFile;
@@ -125,7 +125,7 @@ std::vector<BloomFilterTestRun> PrepareOptimalKTest(int filterSize, int itemsCou
 	return testRuns;
 }
 
-TEST(Performance, FalsePositiveRate_OptimalK)
+TEST(DISABLED_Performance, FalsePositiveRate_OptimalK)
 {
 	std::vector<BloomFilterTestRun> allTestRuns;
 
