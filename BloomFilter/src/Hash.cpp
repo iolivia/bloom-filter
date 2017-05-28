@@ -1,10 +1,8 @@
-#include "stdafx.h"
-#include "Hash.h"
-
 #include <array>
 
-#include "picosha2.h"
-#include "lib\MurmurHash3.h"
+#include "Hash.h"
+
+#include "..\include\MurmurHash3.h"
 
 std::array<uint32_t, 2> Hash::hash(const std::string & input) const
 {

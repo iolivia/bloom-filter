@@ -19,14 +19,6 @@ std::string generateRandomString(size_t length)
 	return result;
 }
 
-BloomFilter TestUtils::CreateBloomFilter(int size, int k)
-{
-	auto hash = new Hash();
-	auto bloomFilter = BloomFilter(*hash, size, k);
-
-	return bloomFilter;
-}
-
 std::vector<std::string> TestUtils::GenerateRandomStrings(int length, int count)
 {
 	std::vector<std::string> strings;

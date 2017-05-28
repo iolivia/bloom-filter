@@ -10,7 +10,7 @@
 
 using namespace TestUtils;
 
-TEST(Performance, Put)
+TEST(DISABLED_Performance, Put)
 {
 	// Arrange
 	std::ofstream testFile;
@@ -21,7 +21,7 @@ TEST(Performance, Put)
 	int itemsCount = 20;
 	int itemLength = 10;
 	auto items = GenerateRandomStrings(itemLength, itemsCount);
-	auto bloomFilter = CreateBloomFilter(size, k);
+	auto bloomFilter = BloomFilter(size, k);
 
 	// Act
 	for (const auto& item : items)
@@ -61,7 +61,7 @@ void RunFalsePositiveTest(
 {
 	auto itemsPresent = GenerateRandomStrings(testRun.itemLength, testRun.itemsCount);
 	auto itemsNotPreset = GenerateRandomStrings(testRun.itemLength, testRun.itemsCount);
-	auto bloomFilter = CreateBloomFilter(testRun.size, testRun.k);
+	auto bloomFilter = BloomFilter(testRun.size, testRun.k);
 
 	// Put itemsPresent
 	for (const auto& item : itemsPresent)
@@ -125,7 +125,7 @@ std::vector<BloomFilterTestRun> PrepareOptimalKTest(int filterSize, int itemsCou
 	return testRuns;
 }
 
-TEST(Performance, FalsePositiveRate_OptimalK)
+TEST(DISABLED_Performance, FalsePositiveRate_OptimalK)
 {
 	std::vector<BloomFilterTestRun> allTestRuns;
 

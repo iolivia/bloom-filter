@@ -4,7 +4,7 @@
 
 #include "TestUtils.h"
 
-#include "../BloomFilter/BloomFilter.cpp"
+#include "../BloomFilter/src/BloomFilter.cpp"
 
 using namespace TestUtils;
 
@@ -13,7 +13,7 @@ TEST(BloomFilter, Put)
 	// Arrange
 	int size = 10;
 	int k = 3;
-	auto bloomFilter = CreateBloomFilter(size, k);
+	auto bloomFilter = BloomFilter(size, k);
 
 	std::string input = "A";
 
@@ -26,7 +26,7 @@ TEST(BloomFilter, IsMaybePresentTrueIfItemPut)
 	// Arrange
 	int size = 10;
 	int k = 3;
-	auto bloomFilter = CreateBloomFilter(size, k);
+	auto bloomFilter = BloomFilter(size, k);
 
 	std::string input = "A";
 
@@ -44,7 +44,7 @@ TEST(BloomFilter, IsMaybePresentFalseIfFilterEmpty)
 	// Arrange
 	int size = 10;
 	int k = 3;
-	auto bloomFilter = CreateBloomFilter(size, k);
+	auto bloomFilter = BloomFilter(size, k);
 
 	std::string input = "A";
 
