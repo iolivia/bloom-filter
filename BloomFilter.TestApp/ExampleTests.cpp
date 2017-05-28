@@ -2,22 +2,23 @@
 
 #include "gtest/gtest.h"
 
-#include "../BloomFilter/BloomFilter.cpp"
+#include "../BloomFilter/src/BloomFilter.h"
 
-using namespace TestUtils;
-
-TEST(BloomFilter, Put)
+TEST(Examples, CreateFilterPutGet)
 {
-	// Arrange
-	int size = 10;
-	int k = 3;
-	auto hash = new Hash();
-	auto bloomFilter = BloomFilter(*hash, size, k);
+	// Create the filter
+	int size = 10000; // the size of the filter - i.e. number of underlying bits used
+	int k = 3; // the number of hashing functions to use
+	auto bloomFilter = BloomFilter(size, k);
 
-	auto bloomFilter = CreateBloomFilter(size, k);
+	// Put items in
+	bloomFilter.put("ABC");
+	bloomFilter.put("JKDJKD");
+	bloomFilter.put("UDIG");
 
-	std::string input = "A";
-
-	// Act
-	bloomFilter.put(input);
+	// Check if items are present
+	bool isMaybePresent;
+	
+	isMaybePresent = bloomFilter.isMaybePresent("ABC");
+	isMaybePresent = bloomFilter.isMaybePresent("EFG");
 }

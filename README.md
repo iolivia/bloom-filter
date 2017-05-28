@@ -18,5 +18,10 @@ bool isMaybePresent(std::string input) const;
 
 ### Example
 
+Creating the filter
 
-
+```c++
+int size = 10000; // the size of the filter - i.e. number of underlying bits used
+int k = 3; // the number of hashing functions to use
+auto bloomFilter = BloomFilter(size, k);
+```
