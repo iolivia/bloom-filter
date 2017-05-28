@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 using namespace System;
 using namespace System::Reflection;
 using namespace System::Runtime::CompilerServices;
@@ -9,11 +11,11 @@ using namespace System::Security::Permissions;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly:AssemblyTitleAttribute(L"BloomFilter")];
+[assembly:AssemblyTitleAttribute(L"CppArena")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"")];
-[assembly:AssemblyProductAttribute(L"BloomFilter")];
+[assembly:AssemblyProductAttribute(L"CppArena")];
 [assembly:AssemblyCopyrightAttribute(L"Copyright (c)  2017")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];

@@ -9,6 +9,7 @@ class BloomFilter : public IBloomFilter {
 
 public:
 	BloomFilter(const Hash& hash, int size, int k);
+	BloomFilter(int size, int k);
 
 	// Inherited via IBloomFilter
 	virtual void put(std::string input) override;

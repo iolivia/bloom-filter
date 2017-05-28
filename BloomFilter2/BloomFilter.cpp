@@ -9,6 +9,11 @@ BloomFilter::BloomFilter(const Hash & hash, int size, int k)
 {
 }
 
+BloomFilter::BloomFilter(int size, int k)
+	: BloomFilter(Hash(), size, k)
+{
+}
+
 void BloomFilter::put(std::string input)
 {
 	// Hash and get k indexes
