@@ -1,13 +1,13 @@
 #include "BloomFilter.h"
 
-BloomFilter::BloomFilter(const Hash & hash, int size, int k)
+BloomFilter::BloomFilter(const Hash & hash, size_t size, int k)
 	: m_hash(hash)
 	, m_k(k)
 	, m_vector(size)
 {
 }
 
-BloomFilter::BloomFilter(int size, int k)
+BloomFilter::BloomFilter(size_t size, int k)
 	: BloomFilter(Hash(), size, k)
 {
 }
