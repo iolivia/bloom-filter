@@ -8,14 +8,14 @@
 class BloomFilter : public IBloomFilter {
 
 public:
-	BloomFilter(int size, int k);
+	BloomFilter(size_t size, int k);
 
 	// Inherited via IBloomFilter
 	virtual void put(std::string input) override;
 	virtual bool isMaybePresent(std::string input) const override;
 
 private:
-	BloomFilter(const Hash& hash, int size, int k);
+	BloomFilter(const Hash& hash, size_t size, int k);
 
 private:
 	Hash m_hash;
