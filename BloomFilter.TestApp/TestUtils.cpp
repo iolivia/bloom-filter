@@ -4,6 +4,7 @@
 #include <iterator>
 #include <iostream>
 #include <ctime>
+#include <stdlib.h>
 
 #include "TestUtils.h"
 
@@ -19,6 +20,11 @@ std::string generateRandomString(size_t length)
 	return result;
 }
 
+size_t generateRandomNumber(size_t max)
+{
+	return rand() % max;
+}
+
 std::vector<std::string> TestUtils::GenerateRandomStrings(int length, int count)
 {
 	std::vector<std::string> strings;
@@ -29,6 +35,18 @@ std::vector<std::string> TestUtils::GenerateRandomStrings(int length, int count)
 	}
 
 	return strings;
+}
+
+std::vector<size_t> TestUtils::GenerateRandomNumbers(int count, int max)
+{
+	std::vector<size_t> numbers;
+
+	for (size_t i = 0; i < count; ++i)
+	{
+		numbers.push_back(generateRandomNumber(max));
+	}
+
+	return numbers;
 }
 
 std::string TestUtils::GetCurrentDateTime()
