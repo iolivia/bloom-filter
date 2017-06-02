@@ -13,9 +13,12 @@ std::array<uint32_t, 2> Hash::hash(const std::string & input) const
 	return out;
 }
 
-std::vector<uint32_t> Hash::hash(const std::string& input, unsigned int iterations, unsigned int max) const
+std::vector<size_t> Hash::hash(
+	const std::string& input, 
+	unsigned int iterations, 
+	size_t max) const
 {
-	auto hashesIndexed = std::vector<uint32_t>();
+	auto hashesIndexed = std::vector<size_t>();
 	auto hashedInput = this->hash(input);
 	auto firstHash = hashedInput[0];
 	auto secondHash = hashedInput[0];
