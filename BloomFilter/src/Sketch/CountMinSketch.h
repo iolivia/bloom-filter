@@ -24,8 +24,10 @@ namespace Sketch
 		virtual uint32_t getFrequency(const std::string& key) const override;
 
 	private:
-		std::vector<std::vector<uint32_t>> m_vector;
+		const size_t m_rows;
+		const size_t m_cols;
 		const Hash m_hash;
+		std::vector<std::vector<uint32_t>> m_vector;
 	};
 }
 
