@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "../BloomFilter/src/BloomFilter.h"
+#include "../BloomFilter/src/Bloom/BloomFilter.h"
 
 namespace TestUtils
 {

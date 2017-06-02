@@ -2,7 +2,9 @@
 
 #include "gtest/gtest.h"
 
-#include "../BloomFilter/src/BloomFilter.h"
+#include "../BloomFilter/src/Bloom/BloomFilter.h"
+
+using namespace Bloom;
 
 TEST(Examples, CreateFilterPutGet)
 {

@@ -4,8 +4,9 @@
 
 #include "TestUtils.h"
 
-#include "../BloomFilter/src/BloomFilter.cpp"
+#include "../BloomFilter/src/Bloom/BloomFilter.cpp"
 
+using namespace Bloom;
 using namespace TestUtils;
 
 TEST(BloomFilter, Put)
