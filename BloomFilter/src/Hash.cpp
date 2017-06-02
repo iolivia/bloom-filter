@@ -31,3 +31,14 @@ std::vector<size_t> Hash::hash(
 
 	return hashesIndexed;
 }
+
+size_t Hash::hashIteration(const std::string & input, unsigned int iterations, size_t max) const
+{
+	auto hashedInput = this->hash(input);
+	auto firstHash = hashedInput[0];
+	auto secondHash = hashedInput[0];
+
+	auto hashedInputInt = (firstHash + secondHash * iterations) % max;
+
+	return hashedInputInt;
+}
