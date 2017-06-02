@@ -23,7 +23,7 @@ std::vector<size_t> Hash::hash(
 	auto firstHash = hashedInput[0];
 	auto secondHash = hashedInput[0];
 
-	for (unsigned int i = 0; i < iterations; i++)
+	for (unsigned int i = 0; i < iterations; ++i)
 	{
 		auto hashedInputInt = (firstHash + secondHash * i) % max;
 		hashesIndexed.push_back(hashedInputInt);

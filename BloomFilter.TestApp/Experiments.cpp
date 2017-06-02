@@ -8,6 +8,7 @@
 
 #include "TestUtils.h"
 
+using namespace Bloom;
 using namespace TestUtils;
 
 TEST(DISABLED_Performance, Put)
